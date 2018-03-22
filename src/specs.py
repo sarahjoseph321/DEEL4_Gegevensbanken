@@ -109,9 +109,9 @@ def gen_all_q_params(all_q_names = None):
 
     # Query 8
     q_08_p_01 = {'jaar': 1990,
-                 'max_lengte': 75}
+                 'lengte': 75}
     q_08_p_02 = {'jaar': 2010,
-                 'max_lengte': 60}
+                 'lengte': 60}
 
     all_q_params[all_q_names[7]] = [q_08_p_01, q_08_p_02]
 
