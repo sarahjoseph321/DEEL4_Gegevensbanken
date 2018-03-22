@@ -1,0 +1,58 @@
+{
+ "query_01": [
+  "tname",
+  "HomeRun"
+ ],
+ "query_02": [
+  "nameFirst",
+  "nameLast",
+  "birthYear",
+  "birthMonth",
+  "birthDay"
+ ],
+ "query_03": [
+  "nameFirst",
+  "nameLast",
+  "tname"
+ ],
+ "query_04": [
+  "tname",
+  "rank",
+  "W",
+  "L",
+  "nameFirst",
+  "nameLast"
+ ],
+ "query_05": [
+  "tname"
+ ],
+ "query_06": [
+  "tname",
+  "yearID",
+  "rank",
+  "W",
+  "L"
+ ],
+ "query_07": [
+  "nameLast",
+  "nameFirst"
+ ],
+ "query_08": [
+  "birthState",
+  "avg_weight",
+  "avg_height",
+  "avg_HomeRun",
+  "avg_Saves"
+ ],
+ "query_09": [
+  "yearID",
+  "tname",
+  "HomeRun"
+ ],
+ "query_10": [
+  "yearID",
+  "tname",
+  "rank",
+  "Games"
+ ]
+}
