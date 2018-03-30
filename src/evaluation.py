@@ -65,12 +65,15 @@ def load_df(fname):
 
 def extract_dfs_from_dir(folder):
     """
+    Collect relevant .csv files into DataFrames
+
     Given a certain folder, we extract the
     relevant .csv files and load them into dataframes.
 
     The dataframes are saved in a dictionary, the encoded part
     of the filename (e.g., q_02_p_01) i extracted as keys.
     """
+
     csv_files = [f for f in os.listdir(folder) if f.endswith('.csv')]
     csv_files.sort()
     keys = [extract_appendix_from_fname(fname) for fname in csv_files]
@@ -100,17 +103,17 @@ def evaluate_df(df_true, df_subm):
           to order, you obtain a score of 90%.
     """
 
-    if is_perfect_match(df_true, df_subm):
-        score = 1
+    score, report = f1_dfs(df_true, df_subm)
+
+    if score == 1 & is_sorted(df_true, df_subm):
         report = {'Perfect match': 'Congratulations!'}
     else:
-        score, report = F1_dfs(df_true, df_subm)
         score *= 0.9
 
     return score, report
 
 
-def F1_dfs(df_true, df_subm):
+def f1_dfs(df_true, df_subm):
     """
     Computes the F1 score of the submitted DataFrame compared to true DataFrame
     """
@@ -136,11 +139,24 @@ def F1_dfs(df_true, df_subm):
     return F1, report
 
 
-def is_perfect_match(df_true, df_subm):
+def is_sorted(df_true, df_subm):
     """
-    Return True iff df_true and df_subm are exactly equal.
+    A rough check to see if a DataFrame is sorted.
+
+    This check is only conducted whenever a perfect F1 score is
+    achieved. Therefore, at least the relative order of the first and
+    last tuple returned in the submission should be consistent with the
+    one provided in the solution.
+
+    Albeit rough, since this happens if and only if a perfect F1 score has been
+    achieved, it should suffice.
     """
-    return df_true.equals(df_subm)
+
+    first_tuple_subm = tuple(df_subm.values[0])
+    final_tuple_subm = tuple(df_subm.values[-1])
+
+    check = idx_tuple_in_df(first_tuple_subm, df_true) < idx_tuple_in_df(final_tuple_subm, df_true)
+    return check
 
 
 def tp_fp_fn(true_set, subm_set):
@@ -211,6 +227,20 @@ def compile_report_dict(TP, FP, FN, precision, recall, F1):
            'recall': recall,
            'F1': F1,
            'Remark': remark}
+    return res
+
+
+def idx_tuple_in_df(tuple_x, df):
+    """
+    Find the first row index of tuple_x in df
+
+    """
+    for i,v in enumerate(df.values):
+        if tuple_x == tuple(v):
+            res = i
+            break
+        else:
+            res=None
     return res
 
 
