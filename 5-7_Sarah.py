@@ -1,1 +1,0 @@
-# Uitwerking van queries 5-7
