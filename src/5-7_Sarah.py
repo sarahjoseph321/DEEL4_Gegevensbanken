@@ -26,22 +26,6 @@ def verbind_met_GB(username, hostname, gegevensbanknaam):
     return connection
 
 
-def run_query(connection, query):
-    """
-    Voer een query uit op een reeds gemaakte connectie, geeft het resultaat van de query terug
-    """
-    query
-
-    # Making a cursor and executing the query
-    cursor = connection.cursor()
-    cursor.execute(query)
-
-    # Collecting the result and casting it in a pd.DataFrame
-    res = cursor.fetchall()
-
-    return res
-
-
 def res_to_df(query_result, column_names):
     """
     Giet het resultaat van een uitgevoerde query in een 'pandas dataframe'
@@ -52,8 +36,12 @@ def res_to_df(query_result, column_names):
     dat je oplossing fout is. (Gezien wij de kolomnamen van de oplossing al cadeau doen)
 
     """
+
+    ####  EXAMPLE QUERY BIJNA AF, MOET ENKEL DATA JUIST IN DE PANDAS DATAFRAME GIETEN ####
     df = pd.DataFrame(query_result, columns=column_names)
-    return df
+
+
+    # return df
 
 
 def query_EX(connection, column_names, homeruns=20):
@@ -64,11 +52,29 @@ def query_EX(connection, column_names, homeruns=20):
     where t.HR > {};
     """.format(homeruns)  # TIP: Zo krijg je parameters in de string (samen met `{}` in de string)
 
+
     # Stap 2 & 3
     res = run_query(connection, query)  # Query uitvoeren
     df = res_to_df(res, column_names)  # Query in DataFrame brengen
-
+    #
     return df
+
+def run_query(connection, query):
+    """
+    Voer een query uit op een reeds gemaakte connectie, geeft het resultaat van de query terug
+    """
+
+    # Making a cursor and executing the query
+    cursor = connection.cursor()
+    cursor.execute(query)
+
+    # Collecting the result and casting it in a pd.DataFrame
+    res = cursor.fetchall()
+
+    print(res)
+    print(len(res))
+
+    return res
 
 def main():
 
@@ -78,5 +84,6 @@ def main():
 
     # We verbinden met de gegevensbank
     c = verbind_met_GB(username, hostname, db)
-    print(c)
+    query_EX(c, 'lahman2016', homeruns=260)
+
 main()
