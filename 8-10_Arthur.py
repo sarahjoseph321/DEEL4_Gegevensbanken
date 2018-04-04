@@ -1,1 +1,0 @@
-# Uitwerking van de laatste 3 queries
