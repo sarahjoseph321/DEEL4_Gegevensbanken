@@ -57,7 +57,7 @@ def query_03(connection, column_names):
             FROM Managers as m
                 JOIN MASTER as ma ON m.playerID =  ma.playerID
                 JOIN Teams as t ON m.teamID = t.teamID
-            WHERE m.plyrMgr = N;
+            WHERE m.plyrMgr = 'N';
             ORDER t.name
     make_connection_databank()
     #TODO het is oke
