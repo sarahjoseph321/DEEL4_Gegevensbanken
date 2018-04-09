@@ -4,12 +4,15 @@
 
 import json
 import getpass
-# import mysql.connector
+import mysql.connector
 import numpy as np
 import os
 import pandas as pd
 import sys
 
+sys.path.append(os.path.join(os.getcwd(), 'src')) # Add src folder to our PATH variable
+from execution import *
+from evaluation import *
 
 def query_01(connection, column_names):
     # Het resultaat van deze functie is een Pandas dataframe met:
@@ -59,9 +62,9 @@ def query_03(connection, column_names):
                 JOIN Teams as t ON m.teamID = t.teamID
             WHERE m.plyrMgr = 'N';
             ORDER t.name
-    make_connection_databank()
+    # make_connection_databank()
     #TODO het is oke
-    # df = execute_plot_query(connection, query, column_names)
+    df = execute_plot_query(connection, query, column_names)
 
     return df
 
@@ -80,10 +83,10 @@ def query_04(connection, column_names, datum_x='1980-01-01', datum_y='1980-01-01
                 JOIN Teams as t ON m.teamID = t.teamID
                 JOIN MASTER as ma ON m.playerID = ma.playerID
             WHERE h.YearID > datum_x AND t.yearID > datum_y
-    make_connection_databank()
+    # make_connection_databank()
 
     #TODO het is oke
-    # df = execute_plot_query(connection, query, column_names)
+    df = execute_plot_query(connection, query, column_names)
 
     return df
 
@@ -105,19 +108,6 @@ def make_connection_databank():
 
 
 
-
-
-### mag weg zelle gewoon effe voor mijn eigen
-def verbind_met_GB(username, hostname, gegevensbanknaam):
-    password = getpass.getpass() # Genereer vakje voor wachtwoord in te geven
-
-    connection = mysql.connector.connect(host=hostname,
-                                         user=username,
-                                         passwd=password,
-                                         db=gegevensbanknaam)
-    return connection
-
-
 def run_query(connection, query):
     # Making a cursor and executing the query
     cursor = connection.cursor()
@@ -133,3 +123,21 @@ def res_to_df(query_result, column_names):
 
     df = pd.DataFrame(query_result, columns=column_names)
     return df
+
+
+
+### mag weg zelle gewoon effe voor mijn eigen
+def verbind_met_GB(username, hostname, gegevensbanknaam):
+    password = getpass.getpass() # Genereer vakje voor wachtwoord in te geven
+
+    connection = mysql.connector.connect(host=hostname,
+                                         user=username,
+                                         passwd=password,
+                                         db=gegevensbanknaam)
+    return connection
+
+make_connection_databank()
+filename = '1-4_Jasper.py'
+run_external_scrypt(filename,c)
+
+
