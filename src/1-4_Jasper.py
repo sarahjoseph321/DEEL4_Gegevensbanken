@@ -18,7 +18,7 @@ def query_01(connection, column_names):
     return df
 
 
-query_01(connection, col_names['query_01'])s
+query_01(connection, col_names['query_01'])
 
 
 
